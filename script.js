@@ -231,39 +231,53 @@ function generateCVContent(formData, template) {
 function generateClassicTemplate(formData, container) {
     container.className = 'cv-template-classic max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg';
     
-    // Personal Information with classic header
+    // Add alignment controls
+    const alignmentControls = document.createElement('div');
+    alignmentControls.className = 'mb-4 flex justify-end space-x-2 alignment-controls';
+    alignmentControls.innerHTML = `
+        <button onclick="updateClassicAlignment('left')" class="px-3 py-1 text-sm rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600">
+            Left
+        </button>
+        <button onclick="updateClassicAlignment('center')" class="px-3 py-1 text-sm rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600">
+            Center
+        </button>
+        <button onclick="updateClassicAlignment('right')" class="px-3 py-1 text-sm rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600">
+            Right
+        </button>
+    `;
+    container.appendChild(alignmentControls);
+    
+    // Personal Information with alignment class
     const personalInfo = document.createElement('div');
+    personalInfo.className = 'text-center mb-8 classic-alignment';
     personalInfo.innerHTML = `
-        <div class="mb-8 border-b-2 border-gray-300 dark:border-gray-600 pb-4">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">${formData.get('fullName')}</h1>
-            <div class="text-gray-600 dark:text-gray-400 space-x-4">
-                ${formData.get('email') ? `<span>${formData.get('email')}</span>` : ''}
-                ${formData.get('phone') ? `<span>${formData.get('phone')}</span>` : ''}
-                ${formData.get('location') ? `<span>${formData.get('location')}</span>` : ''}
-            </div>
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">${formData.get('fullName')}</h1>
+        <div class="text-gray-600 dark:text-gray-400 space-x-6">
+            ${formData.get('email') ? `<span>${formData.get('email')}</span>` : ''}
+            ${formData.get('phone') ? `<span>${formData.get('phone')}</span>` : ''}
+            ${formData.get('location') ? `<span>${formData.get('location')}</span>` : ''}
         </div>
     `;
     container.appendChild(personalInfo);
     
-    // Professional Summary with classic style
+    // Professional Summary with alignment class
     if (formData.get('summary')) {
         const summary = document.createElement('div');
+        summary.className = 'mb-8 text-center max-w-3xl mx-auto classic-alignment';
         summary.innerHTML = `
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 border-b border-gray-300 dark:border-gray-600 pb-2">Professional Summary</h2>
-                <p class="text-gray-700 dark:text-gray-300">${formData.get('summary')}</p>
-            </div>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Professional Summary</h2>
+            <p class="text-gray-700 dark:text-gray-300">${formData.get('summary')}</p>
         `;
         container.appendChild(summary);
     }
     
-    // Work Experience with classic layout
+    // Work Experience with alignment class
     const companies = formData.getAll('company[]');
     if (companies.length > 0 && companies[0] !== '') {
         const experience = document.createElement('div');
+        experience.className = 'mb-8 classic-alignment';
         experience.innerHTML = `
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">Work Experience</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Work Experience</h2>
         `;
         
         companies.forEach((company, index) => {
@@ -274,8 +288,8 @@ function generateClassicTemplate(formData, container) {
                 const descriptions = formData.getAll('description[]');
                 
                 experience.innerHTML += `
-                    <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">${company}</h3>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">${company}</h3>
                         <p class="text-gray-600 dark:text-gray-400 mb-2">${positions[index]} | ${formatDate(startDates[index])} - ${formatDate(endDates[index])}</p>
                         <p class="text-gray-700 dark:text-gray-300">${descriptions[index]}</p>
                     </div>
@@ -287,13 +301,13 @@ function generateClassicTemplate(formData, container) {
         container.appendChild(experience);
     }
     
-    // Education with classic style
+    // Education with alignment class
     const institutions = formData.getAll('institution[]');
     if (institutions.length > 0 && institutions[0] !== '') {
         const education = document.createElement('div');
+        education.className = 'mb-8 classic-alignment';
         education.innerHTML = `
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">Education</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Education</h2>
         `;
         
         institutions.forEach((institution, index) => {
@@ -304,7 +318,7 @@ function generateClassicTemplate(formData, container) {
                 
                 education.innerHTML += `
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">${institution}</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">${institution}</h3>
                         <p class="text-gray-600 dark:text-gray-400">${degrees[index]} | ${formatDate(startDates[index])} - ${formatDate(endDates[index])}</p>
                     </div>
                 `;
@@ -315,54 +329,84 @@ function generateClassicTemplate(formData, container) {
         container.appendChild(education);
     }
     
-    // Skills with classic design
+    // Skills with alignment class
     const skills = formData.get('skills');
     if (skills) {
         const skillsDiv = document.createElement('div');
+        skillsDiv.className = 'mb-8 classic-alignment';
         skillsDiv.innerHTML = `
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">Skills</h2>
-                <div class="flex flex-wrap gap-2">
-                    ${skills.split(',').map(skill => `
-                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">${skill.trim()}</span>
-                    `).join('')}
-                </div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Skills</h2>
+            <div class="flex flex-wrap gap-3">
+                ${skills.split(',').map(skill => `
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">${skill.trim()}</span>
+                `).join('')}
             </div>
         `;
         container.appendChild(skillsDiv);
     }
 }
 
+// Update the alignment function to handle section titles
+function updateClassicAlignment(alignment) {
+    const elements = document.querySelectorAll('.classic-alignment');
+    elements.forEach(element => {
+        element.className = element.className.replace(/text-(left|center|right)/, '');
+        element.className += ` text-${alignment}`;
+        
+        // Update section titles
+        const titles = element.querySelectorAll('h2');
+        titles.forEach(title => {
+            title.className = title.className.replace(/text-(left|center|right)/, '');
+            title.className += ` text-${alignment}`;
+        });
+    });
+}
+
 function generateModernTemplate(formData, container) {
     container.className = 'cv-template-modern max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg';
     
-    // Personal Information with modern gradient header
-    const personalInfo = document.createElement('div');
-    personalInfo.innerHTML = `
-        <div class="mb-8 bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg">
-            <h1 class="text-4xl font-bold mb-2">${formData.get('fullName')}</h1>
-            <div class="space-x-4 text-blue-100">
-                ${formData.get('email') ? `<span>${formData.get('email')}</span>` : ''}
-                ${formData.get('phone') ? `<span>${formData.get('phone')}</span>` : ''}
-                ${formData.get('location') ? `<span>${formData.get('location')}</span>` : ''}
+    // Two-column layout
+    const layout = document.createElement('div');
+    layout.className = 'grid grid-cols-1 md:grid-cols-3 gap-8';
+    
+    // Left sidebar with personal info
+    const sidebar = document.createElement('div');
+    sidebar.className = 'md:col-span-1 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg';
+    
+    sidebar.innerHTML = `
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">${formData.get('fullName')}</h1>
+            <div class="space-y-2 text-gray-600 dark:text-gray-300">
+                ${formData.get('email') ? `<div>${formData.get('email')}</div>` : ''}
+                ${formData.get('phone') ? `<div>${formData.get('phone')}</div>` : ''}
+                ${formData.get('location') ? `<div>${formData.get('location')}</div>` : ''}
             </div>
         </div>
-    `;
-    container.appendChild(personalInfo);
-    
-    // Professional Summary with modern card design
-    if (formData.get('summary')) {
-        const summary = document.createElement('div');
-        summary.innerHTML = `
-            <div class="mb-8 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Professional Summary</h2>
-                <p class="text-gray-700 dark:text-gray-300">${formData.get('summary')}</p>
+        
+        ${formData.get('summary') ? `
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Professional Summary</h2>
+                <p class="text-gray-700 dark:text-gray-300 text-sm">${formData.get('summary')}</p>
             </div>
-        `;
-        container.appendChild(summary);
-    }
+        ` : ''}
+        
+        ${formData.get('skills') ? `
+            <div>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Skills</h2>
+                <div class="flex flex-wrap gap-2">
+                    ${formData.get('skills').split(',').map(skill => `
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded text-xs">${skill.trim()}</span>
+                    `).join('')}
+                </div>
+            </div>
+        ` : ''}
+    `;
     
-    // Work Experience with modern timeline design
+    // Main content area
+    const mainContent = document.createElement('div');
+    mainContent.className = 'md:col-span-2';
+    
+    // Work Experience
     const companies = formData.getAll('company[]');
     if (companies.length > 0 && companies[0] !== '') {
         const experience = document.createElement('div');
@@ -390,10 +434,10 @@ function generateModernTemplate(formData, container) {
         });
         
         experience.innerHTML += '</div>';
-        container.appendChild(experience);
+        mainContent.appendChild(experience);
     }
     
-    // Education with modern card design
+    // Education
     const institutions = formData.getAll('institution[]');
     if (institutions.length > 0 && institutions[0] !== '') {
         const education = document.createElement('div');
@@ -409,8 +453,8 @@ function generateModernTemplate(formData, container) {
                 const endDates = formData.getAll('eduEndDate[]');
                 
                 education.innerHTML += `
-                    <div class="mb-6 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">${institution}</h3>
+                    <div class="mb-6 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">${institution}</h3>
                         <p class="text-blue-600 dark:text-blue-400">${degrees[index]} | ${formatDate(startDates[index])} - ${formatDate(endDates[index])}</p>
                     </div>
                 `;
@@ -418,45 +462,26 @@ function generateModernTemplate(formData, container) {
         });
         
         education.innerHTML += '</div>';
-        container.appendChild(education);
+        mainContent.appendChild(education);
     }
     
-    // Skills with modern design
-    const skills = formData.get('skills');
-    if (skills) {
-        const skillsDiv = document.createElement('div');
-        skillsDiv.innerHTML = `
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Skills</h2>
-                <div class="flex flex-wrap gap-3">
-                    ${skills.split(',').map(skill => `
-                        <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full text-sm font-medium">${skill.trim()}</span>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-        container.appendChild(skillsDiv);
-    }
+    layout.appendChild(sidebar);
+    layout.appendChild(mainContent);
+    container.appendChild(layout);
 }
 
 function generateProfessionalTemplate(formData, container) {
     container.className = 'cv-template-professional max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg';
     
-    // Personal Information with professional header
-    const personalInfo = document.createElement('div');
-    personalInfo.innerHTML = `
-        <div class="mb-8 border-b-4 border-gray-300 dark:border-gray-600 pb-4">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">${formData.get('fullName')}</h1>
-            <div class="text-gray-600 dark:text-gray-400 space-x-4">
-                ${formData.get('email') ? `<span>${formData.get('email')}</span>` : ''}
-                ${formData.get('phone') ? `<span>${formData.get('phone')}</span>` : ''}
-                ${formData.get('location') ? `<span>${formData.get('location')}</span>` : ''}
-            </div>
-        </div>
-    `;
-    container.appendChild(personalInfo);
+    // Two-column layout
+    const layout = document.createElement('div');
+    layout.className = 'grid grid-cols-1 md:grid-cols-3 gap-8';
     
-    // Professional Summary with clean design
+    // Main content area (left)
+    const mainContent = document.createElement('div');
+    mainContent.className = 'md:col-span-2';
+    
+    // Professional Summary
     if (formData.get('summary')) {
         const summary = document.createElement('div');
         summary.innerHTML = `
@@ -465,10 +490,10 @@ function generateProfessionalTemplate(formData, container) {
                 <p class="text-gray-700 dark:text-gray-300">${formData.get('summary')}</p>
             </div>
         `;
-        container.appendChild(summary);
+        mainContent.appendChild(summary);
     }
     
-    // Work Experience with professional layout
+    // Work Experience
     const companies = formData.getAll('company[]');
     if (companies.length > 0 && companies[0] !== '') {
         const experience = document.createElement('div');
@@ -498,10 +523,10 @@ function generateProfessionalTemplate(formData, container) {
         });
         
         experience.innerHTML += '</div>';
-        container.appendChild(experience);
+        mainContent.appendChild(experience);
     }
     
-    // Education with professional layout
+    // Education
     const institutions = formData.getAll('institution[]');
     if (institutions.length > 0 && institutions[0] !== '') {
         const education = document.createElement('div');
@@ -529,25 +554,38 @@ function generateProfessionalTemplate(formData, container) {
         });
         
         education.innerHTML += '</div>';
-        container.appendChild(education);
+        mainContent.appendChild(education);
     }
     
-    // Skills with professional design
-    const skills = formData.get('skills');
-    if (skills) {
-        const skillsDiv = document.createElement('div');
-        skillsDiv.innerHTML = `
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Skills</h2>
+    // Right sidebar with personal info and skills
+    const sidebar = document.createElement('div');
+    sidebar.className = 'md:col-span-1 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg';
+    
+    sidebar.innerHTML = `
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">${formData.get('fullName')}</h1>
+            <div class="space-y-2 text-gray-600 dark:text-gray-300">
+                ${formData.get('email') ? `<div>${formData.get('email')}</div>` : ''}
+                ${formData.get('phone') ? `<div>${formData.get('phone')}</div>` : ''}
+                ${formData.get('location') ? `<div>${formData.get('location')}</div>` : ''}
+            </div>
+        </div>
+        
+        ${formData.get('skills') ? `
+            <div>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Skills</h2>
                 <div class="flex flex-wrap gap-2">
-                    ${skills.split(',').map(skill => `
-                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-sm">${skill.trim()}</span>
+                    ${formData.get('skills').split(',').map(skill => `
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded text-xs">${skill.trim()}</span>
                     `).join('')}
                 </div>
             </div>
-        `;
-        container.appendChild(skillsDiv);
-    }
+        ` : ''}
+    `;
+    
+    layout.appendChild(mainContent);
+    layout.appendChild(sidebar);
+    container.appendChild(layout);
 }
 
 // PDF Generation
@@ -559,17 +597,32 @@ async function downloadPDF() {
     try {
         showNotification('Generating PDF...');
         
+        // Get the element's dimensions
+        const elementWidth = element.offsetWidth;
+        const elementHeight = element.offsetHeight;
+        
+        // Calculate the scale to fit on A4
+        const pageWidth = 210; // A4 width in mm
+        const pageHeight = 297; // A4 height in mm
+        const scale = Math.min(pageWidth / elementWidth, pageHeight / elementHeight);
+        
         const canvas = await html2canvas(element, {
             scale: 2,
             useCORS: true,
-            logging: false
+            logging: false,
+            width: elementWidth,
+            height: elementHeight
         });
         
         const imgData = canvas.toDataURL('image/png');
-        const imgWidth = 210; // A4 width in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        const imgWidth = elementWidth * scale;
+        const imgHeight = elementHeight * scale;
         
-        doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        // Center the content on the page
+        const xOffset = (pageWidth - imgWidth) / 2;
+        const yOffset = (pageHeight - imgHeight) / 2;
+        
+        doc.addImage(imgData, 'PNG', xOffset, yOffset, imgWidth, imgHeight);
         doc.save('cv.pdf');
         
         showNotification('PDF downloaded successfully');
@@ -633,13 +686,34 @@ function enableTestMode() {
         }
     ];
     
+    // Create and add work experience entries
     workExperiences.forEach(exp => {
-        const template = workContainer.querySelector('.work-experience-entry').cloneNode(true);
-        template.querySelector('[name="company[]"]').value = exp.company;
-        template.querySelector('[name="position[]"]').value = exp.position;
-        template.querySelector('[name="startDate[]"]').value = exp.startDate;
-        template.querySelector('[name="endDate[]"]').value = exp.endDate;
-        template.querySelector('[name="description[]"]').value = exp.description;
+        const template = document.createElement('div');
+        template.className = 'work-experience-entry space-y-4 p-4 border dark:border-gray-700 rounded-lg';
+        template.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company</label>
+                    <input type="text" name="company[]" value="${exp.company}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Position</label>
+                    <input type="text" name="position[]" value="${exp.position}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start Date</label>
+                    <input type="date" name="startDate[]" value="${exp.startDate}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">End Date</label>
+                    <input type="date" name="endDate[]" value="${exp.endDate}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                <textarea name="description[]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">${exp.description}</textarea>
+            </div>
+        `;
         workContainer.appendChild(template);
     });
     
@@ -662,12 +736,30 @@ function enableTestMode() {
         }
     ];
     
+    // Create and add education entries
     education.forEach(edu => {
-        const template = eduContainer.querySelector('.education-entry').cloneNode(true);
-        template.querySelector('[name="institution[]"]').value = edu.institution;
-        template.querySelector('[name="degree[]"]').value = edu.degree;
-        template.querySelector('[name="eduStartDate[]"]').value = edu.startDate;
-        template.querySelector('[name="eduEndDate[]"]').value = edu.endDate;
+        const template = document.createElement('div');
+        template.className = 'education-entry space-y-4 p-4 border dark:border-gray-700 rounded-lg';
+        template.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Institution</label>
+                    <input type="text" name="institution[]" value="${edu.institution}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Degree</label>
+                    <input type="text" name="degree[]" value="${edu.degree}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start Date</label>
+                    <input type="date" name="eduStartDate[]" value="${edu.startDate}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">End Date</label>
+                    <input type="date" name="eduEndDate[]" value="${edu.endDate}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                </div>
+            </div>
+        `;
         eduContainer.appendChild(template);
     });
     

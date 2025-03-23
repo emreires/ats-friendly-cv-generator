@@ -1,14 +1,46 @@
 /* Custom styles for the CV Generator */
 
-/* Smooth transitions */
-* {
-    transition: all 0.3s ease-in-out;
+/* Base styles */
+:root {
+    --primary: #3B82F6;
+    --primary-dark: #2563EB;
+    --success: #10B981;
+    --error: #EF4444;
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F3F4F6;
 }
 
-/* Form input focus styles */
-input:focus, textarea:focus {
+.dark {
+    --primary: #60A5FA;
+    --primary-dark: #3B82F6;
+    --success: #34D399;
+    --error: #F87171;
+    --text-primary: #F9FAFB;
+    --text-secondary: #D1D5DB;
+    --bg-primary: #111827;
+    --bg-secondary: #1F2937;
+}
+
+/* Smooth transitions */
+* {
+    transition: background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out,
+                border-color 0.3s ease-in-out,
+                transform 0.3s ease-in-out,
+                opacity 0.3s ease-in-out;
+}
+
+/* Form input styles */
+input, textarea, select {
+    @apply bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white;
+    transition: all 0.2s ease-in-out;
+}
+
+input:focus, textarea:focus, select:focus {
+    @apply ring-2 ring-blue-500 dark:ring-blue-400 border-transparent;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 /* Section transitions */
@@ -22,6 +54,191 @@ section {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Template styles */
+.cv-template-classic {
+    @apply max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 shadow-lg rounded-lg;
+}
+
+.cv-template-modern {
+    @apply max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 shadow-lg rounded-lg;
+    /* Add modern-specific styles */
+}
+
+.cv-template-professional {
+    @apply max-w-4xl mx-auto p-8 bg-white dark:bg-gray-900 shadow-lg rounded-lg;
+    /* Add professional-specific styles */
+}
+
+/* Template preview hover effects */
+.template-option {
+    @apply transition-all duration-300 transform hover:scale-105;
+}
+
+.template-option.selected {
+    @apply ring-2 ring-blue-500;
+}
+
+/* Form step transitions */
+.step-transition {
+    @apply transition-all duration-300 transform;
+}
+
+.step-transition.entering {
+    @apply translate-x-full opacity-0;
+}
+
+.step-transition.entered {
+    @apply translate-x-0 opacity-100;
+}
+
+.step-transition.exiting {
+    @apply -translate-x-full opacity-0;
+}
+
+/* Progress bar animation */
+.progress-bar-fill {
+    @apply transition-all duration-500 ease-out;
+}
+
+/* Button hover effects */
+button {
+    @apply transition-all duration-200;
+}
+
+button:not(:disabled):hover {
+    @apply transform scale-105;
+}
+
+button:not(:disabled):active {
+    @apply transform scale-95;
+}
+
+/* Form field animations */
+.form-field {
+    @apply transition-all duration-200;
+}
+
+.form-field:focus-within {
+    @apply transform -translate-y-1;
+}
+
+/* Loading animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    @apply inline-block w-6 h-6 border-3 border-blue-500 dark:border-blue-400 rounded-full;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+/* Success message animation */
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.success-message {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Template-specific styles */
+.cv-template-modern {
+    font-family: 'Inter', sans-serif;
+    
+    h1 {
+        @apply text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-300 bg-clip-text text-transparent;
+    }
+    
+    h2 {
+        @apply text-2xl font-semibold mb-3 text-blue-600 dark:text-blue-400 uppercase tracking-wide;
+    }
+    
+    .section {
+        @apply mb-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg;
+    }
+    
+    .skill-tag {
+        @apply px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full;
+    }
+}
+
+.cv-template-professional {
+    font-family: 'Inter', sans-serif;
+    
+    h1 {
+        @apply text-3xl font-bold mb-4 border-b-2 border-gray-200 dark:border-gray-700 pb-4;
+    }
+    
+    h2 {
+        @apply text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200 border-l-4 border-blue-600 dark:border-blue-400 pl-3;
+    }
+    
+    .section {
+        @apply mb-8 border-b border-gray-200 dark:border-gray-700 pb-6;
+    }
+    
+    .skill-tag {
+        @apply px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-sm border border-gray-200 dark:border-gray-700;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .cv-template-classic,
+    .cv-template-modern,
+    .cv-template-professional {
+        @apply p-4;
+    }
+    
+    h1 {
+        @apply text-2xl;
+    }
+    
+    h2 {
+        @apply text-xl;
+    }
+    
+    .section {
+        @apply mb-6;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        @apply bg-white text-black;
+    }
+    
+    .cv-template-classic,
+    .cv-template-modern,
+    .cv-template-professional {
+        @apply shadow-none p-0 m-0 max-w-none;
+    }
+    
+    button,
+    .no-print {
+        @apply hidden;
+    }
+    
+    a {
+        @apply text-black no-underline;
+    }
+    
+    .section {
+        @apply break-inside-avoid page-break-inside-avoid;
     }
 }
 
@@ -141,83 +358,6 @@ input:invalid:focus, textarea:invalid:focus {
     overflow: hidden;
 }
 
-.progress-bar-fill {
-    height: 100%;
-    background-color: #3b82f6;
-    transition: width 0.3s ease;
-}
-
-/* Step indicators */
-.step-indicator {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.875rem;
-}
-
-.step-indicator.active {
-    background-color: #3b82f6;
-    color: white;
-}
-
-.step-indicator.completed {
-    background-color: #10b981;
-    color: white;
-}
-
-/* ATS-friendly print styles */
-@media print {
-    body {
-        background: white;
-    }
-
-    #cv-content {
-        padding: 0;
-        max-width: none;
-    }
-
-    .work-experience-entry, .education-entry {
-        break-inside: avoid;
-        page-break-inside: avoid;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        margin-bottom: 1.5rem;
-    }
-
-    .skill-tag {
-        background: none;
-        padding: 0;
-        margin-right: 1rem;
-    }
-
-    a {
-        text-decoration: none;
-        color: #1f2937;
-    }
-}
-
-/* Loading animation */
-.loading {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 3px solid rgba(59, 130, 246, 0.3);
-    border-radius: 50%;
-    border-top-color: #3b82f6;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
@@ -234,43 +374,4 @@ input:invalid:focus, textarea:invalid:focus {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
-
-/* Success message animation */
-@keyframes slideIn {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.success-message {
-    animation: slideIn 0.5s ease-out forwards;
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-    #cv-content {
-        padding: 1rem;
-    }
-
-    #cv-content h1 {
-        font-size: 1.875rem;
-    }
-
-    #cv-content h2 {
-        font-size: 1.25rem;
-    }
-
-    #cv-content h3 {
-        font-size: 1.125rem;
-    }
-
-    .work-experience-entry, .education-entry {
-        padding: 1rem;
-    }
 } 

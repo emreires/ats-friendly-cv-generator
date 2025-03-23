@@ -231,10 +231,10 @@ function generateCVContent(formData, template) {
 function generateClassicTemplate(formData, container) {
     container.className = 'cv-template-classic max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg';
     
-    // Personal Information
+    // Personal Information with classic header
     const personalInfo = document.createElement('div');
     personalInfo.innerHTML = `
-        <div class="mb-8 border-b pb-4">
+        <div class="mb-8 border-b-2 border-gray-300 dark:border-gray-600 pb-4">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">${formData.get('fullName')}</h1>
             <div class="text-gray-600 dark:text-gray-400 space-x-4">
                 ${formData.get('email') ? `<span>${formData.get('email')}</span>` : ''}
@@ -245,25 +245,25 @@ function generateClassicTemplate(formData, container) {
     `;
     container.appendChild(personalInfo);
     
-    // Professional Summary
+    // Professional Summary with classic style
     if (formData.get('summary')) {
         const summary = document.createElement('div');
         summary.innerHTML = `
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Professional Summary</h2>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 border-b border-gray-300 dark:border-gray-600 pb-2">Professional Summary</h2>
                 <p class="text-gray-700 dark:text-gray-300">${formData.get('summary')}</p>
             </div>
         `;
         container.appendChild(summary);
     }
     
-    // Work Experience
+    // Work Experience with classic layout
     const companies = formData.getAll('company[]');
     if (companies.length > 0 && companies[0] !== '') {
         const experience = document.createElement('div');
         experience.innerHTML = `
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Work Experience</h2>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">Work Experience</h2>
         `;
         
         companies.forEach((company, index) => {
@@ -287,13 +287,13 @@ function generateClassicTemplate(formData, container) {
         container.appendChild(experience);
     }
     
-    // Education
+    // Education with classic style
     const institutions = formData.getAll('institution[]');
     if (institutions.length > 0 && institutions[0] !== '') {
         const education = document.createElement('div');
         education.innerHTML = `
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Education</h2>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">Education</h2>
         `;
         
         institutions.forEach((institution, index) => {
@@ -315,13 +315,13 @@ function generateClassicTemplate(formData, container) {
         container.appendChild(education);
     }
     
-    // Skills
+    // Skills with classic design
     const skills = formData.get('skills');
     if (skills) {
         const skillsDiv = document.createElement('div');
         skillsDiv.innerHTML = `
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Skills</h2>
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">Skills</h2>
                 <div class="flex flex-wrap gap-2">
                     ${skills.split(',').map(skill => `
                         <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">${skill.trim()}</span>
@@ -336,7 +336,7 @@ function generateClassicTemplate(formData, container) {
 function generateModernTemplate(formData, container) {
     container.className = 'cv-template-modern max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg';
     
-    // Personal Information with gradient background
+    // Personal Information with modern gradient header
     const personalInfo = document.createElement('div');
     personalInfo.innerHTML = `
         <div class="mb-8 bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg">
@@ -350,7 +350,7 @@ function generateModernTemplate(formData, container) {
     `;
     container.appendChild(personalInfo);
     
-    // Professional Summary with card design
+    // Professional Summary with modern card design
     if (formData.get('summary')) {
         const summary = document.createElement('div');
         summary.innerHTML = `
@@ -362,7 +362,7 @@ function generateModernTemplate(formData, container) {
         container.appendChild(summary);
     }
     
-    // Work Experience with timeline design
+    // Work Experience with modern timeline design
     const companies = formData.getAll('company[]');
     if (companies.length > 0 && companies[0] !== '') {
         const experience = document.createElement('div');
@@ -603,7 +603,7 @@ function enableTestMode() {
     form.querySelector('[name="email"]').value = 'john.doe@example.com';
     form.querySelector('[name="phone"]').value = '+1 (555) 123-4567';
     form.querySelector('[name="location"]').value = 'San Francisco, CA';
-    form.querySelector('[name="summary"]').value = 'Experienced software developer with 5+ years of expertise in full-stack development. Strong problem-solving skills and a passion for creating efficient, scalable solutions.';
+    form.querySelector('[name="summary"]').value = 'Experienced software developer with 5+ years of expertise in full-stack development. Strong problem-solving skills and a passion for creating efficient, scalable solutions. Proven track record of delivering high-quality software products and leading development teams.';
     
     // Work Experience
     const workContainer = document.getElementById('work-experience-container');
@@ -615,14 +615,21 @@ function enableTestMode() {
             position: 'Senior Software Engineer',
             startDate: '2020-01',
             endDate: '2023-12',
-            description: 'Led development of microservices architecture. Implemented CI/CD pipelines and automated testing frameworks.'
+            description: 'Led development of microservices architecture. Implemented CI/CD pipelines and automated testing frameworks. Mentored junior developers and conducted code reviews. Reduced system downtime by 40% through improved monitoring and alerting.'
         },
         {
             company: 'Digital Innovations',
             position: 'Full Stack Developer',
             startDate: '2018-03',
             endDate: '2019-12',
-            description: 'Developed and maintained multiple web applications using React and Node.js. Improved application performance by 40%.'
+            description: 'Developed and maintained multiple web applications using React and Node.js. Improved application performance by 40%. Implemented responsive design patterns and accessibility features. Collaborated with UX team to enhance user experience.'
+        },
+        {
+            company: 'StartUp Ventures',
+            position: 'Software Developer',
+            startDate: '2017-01',
+            endDate: '2018-02',
+            description: 'Built and deployed cloud-native applications using AWS services. Developed RESTful APIs and microservices. Implemented automated testing and continuous integration.'
         }
     ];
     
@@ -646,6 +653,12 @@ function enableTestMode() {
             degree: 'Bachelor of Science in Computer Science',
             startDate: '2014-09',
             endDate: '2018-05'
+        },
+        {
+            institution: 'Stanford University',
+            degree: 'Master of Science in Software Engineering',
+            startDate: '2018-09',
+            endDate: '2020-05'
         }
     ];
     
@@ -659,9 +672,9 @@ function enableTestMode() {
     });
     
     // Skills
-    form.querySelector('[name="skills"]').value = 'JavaScript, Python, React, Node.js, SQL, Git, AWS, Docker, Kubernetes, Agile, Scrum, REST APIs, Microservices';
+    form.querySelector('[name="skills"]').value = 'JavaScript, Python, React, Node.js, SQL, Git, AWS, Docker, Kubernetes, Agile, Scrum, REST APIs, Microservices, TypeScript, GraphQL, CI/CD, Test-Driven Development, System Design, Cloud Architecture, Leadership, Team Management, Problem Solving, Communication';
     
-    showNotification('Test mode enabled - form filled with sample data');
+    showNotification('Test mode enabled - form filled with comprehensive sample data');
 }
 
 // Initialize the application

@@ -3,6 +3,7 @@ function showForm() {
     document.getElementById('landing').classList.add('hidden');
     document.getElementById('cv-form').classList.remove('hidden');
     document.getElementById('cv-preview').classList.add('hidden');
+    showStep(1);
 }
 
 function showLanding() {
@@ -19,6 +20,78 @@ function showPreview() {
 
 function editCV() {
     showForm();
+}
+
+// Step navigation functions
+function showStep(stepNumber) {
+    // Hide all steps
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById(`step-${i}`).classList.add('hidden');
+    }
+    
+    // Show current step
+    document.getElementById(`step-${stepNumber}`).classList.remove('hidden');
+    
+    // Update progress indicators
+    updateProgress(stepNumber);
+}
+
+function nextStep(currentStep) {
+    if (validateStep(currentStep)) {
+        showStep(currentStep + 1);
+    }
+}
+
+function prevStep(currentStep) {
+    showStep(currentStep - 1);
+}
+
+function updateProgress(currentStep) {
+    const steps = document.querySelectorAll('.flex.items-center');
+    steps.forEach((step, index) => {
+        const stepNumber = index + 1;
+        const circle = step.querySelector('.rounded-full');
+        const text = step.querySelector('.text-sm');
+        
+        if (stepNumber < currentStep) {
+            circle.classList.remove('bg-gray-200', 'text-gray-600');
+            circle.classList.add('bg-green-500', 'text-white');
+            text.classList.remove('text-gray-500');
+            text.classList.add('text-gray-900');
+        } else if (stepNumber === currentStep) {
+            circle.classList.remove('bg-gray-200', 'text-gray-600', 'bg-green-500');
+            circle.classList.add('bg-blue-600', 'text-white');
+            text.classList.remove('text-gray-500');
+            text.classList.add('text-gray-900');
+        } else {
+            circle.classList.remove('bg-blue-600', 'bg-green-500', 'text-white');
+            circle.classList.add('bg-gray-200', 'text-gray-600');
+            text.classList.remove('text-gray-900');
+            text.classList.add('text-gray-500');
+        }
+    });
+}
+
+function validateStep(step) {
+    const form = document.getElementById('cv-generator-form');
+    const stepElement = document.getElementById(`step-${step}`);
+    const requiredFields = stepElement.querySelectorAll('[required]');
+    
+    let isValid = true;
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            isValid = false;
+            field.classList.add('border-red-500');
+        } else {
+            field.classList.remove('border-red-500');
+        }
+    });
+    
+    if (!isValid) {
+        alert('Please fill in all required fields before proceeding.');
+    }
+    
+    return isValid;
 }
 
 // Form handling functions
@@ -57,9 +130,13 @@ function generateCV() {
     // Personal Information
     const personalInfo = document.createElement('div');
     personalInfo.innerHTML = `
-        <h1>${formData.get('fullName')}</h1>
-        <div class="text-gray-600">
-            ${formData.get('email')} | ${formData.get('phone')} | ${formData.get('location')}
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">${formData.get('fullName')}</h1>
+            <div class="text-gray-600 space-x-4">
+                ${formData.get('email') ? `<span>${formData.get('email')}</span>` : ''}
+                ${formData.get('phone') ? `<span>${formData.get('phone')}</span>` : ''}
+                ${formData.get('location') ? `<span>${formData.get('location')}</span>` : ''}
+            </div>
         </div>
     `;
     cvContent.appendChild(personalInfo);
@@ -68,8 +145,10 @@ function generateCV() {
     if (formData.get('summary')) {
         const summary = document.createElement('div');
         summary.innerHTML = `
-            <h2>Professional Summary</h2>
-            <p>${formData.get('summary')}</p>
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-900 mb-2">Professional Summary</h2>
+                <p class="text-gray-700">${formData.get('summary')}</p>
+            </div>
         `;
         cvContent.appendChild(summary);
     }
@@ -78,7 +157,10 @@ function generateCV() {
     const companies = formData.getAll('company[]');
     if (companies.length > 0 && companies[0] !== '') {
         const experience = document.createElement('div');
-        experience.innerHTML = '<h2>Work Experience</h2>';
+        experience.innerHTML = `
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Work Experience</h2>
+        `;
         
         companies.forEach((company, index) => {
             if (company) {
@@ -88,15 +170,16 @@ function generateCV() {
                 const descriptions = formData.getAll('description[]');
                 
                 experience.innerHTML += `
-                    <div class="work-experience-entry">
-                        <h3 class="font-semibold">${company}</h3>
-                        <p class="text-gray-600">${positions[index]} | ${formatDate(startDates[index])} - ${formatDate(endDates[index])}</p>
-                        <p>${descriptions[index]}</p>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-gray-900">${company}</h3>
+                        <p class="text-gray-600 mb-2">${positions[index]} | ${formatDate(startDates[index])} - ${formatDate(endDates[index])}</p>
+                        <p class="text-gray-700">${descriptions[index]}</p>
                     </div>
                 `;
             }
         });
         
+        experience.innerHTML += '</div>';
         cvContent.appendChild(experience);
     }
     
@@ -104,7 +187,10 @@ function generateCV() {
     const institutions = formData.getAll('institution[]');
     if (institutions.length > 0 && institutions[0] !== '') {
         const education = document.createElement('div');
-        education.innerHTML = '<h2>Education</h2>';
+        education.innerHTML = `
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Education</h2>
+        `;
         
         institutions.forEach((institution, index) => {
             if (institution) {
@@ -113,14 +199,15 @@ function generateCV() {
                 const endDates = formData.getAll('eduEndDate[]');
                 
                 education.innerHTML += `
-                    <div class="education-entry">
-                        <h3 class="font-semibold">${institution}</h3>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-gray-900">${institution}</h3>
                         <p class="text-gray-600">${degrees[index]} | ${formatDate(startDates[index])} - ${formatDate(endDates[index])}</p>
                     </div>
                 `;
             }
         });
         
+        education.innerHTML += '</div>';
         cvContent.appendChild(education);
     }
     
@@ -129,11 +216,13 @@ function generateCV() {
     if (skills) {
         const skillsDiv = document.createElement('div');
         skillsDiv.innerHTML = `
-            <h2>Skills</h2>
-            <div class="skills-list">
-                ${skills.split(',').map(skill => `
-                    <span class="skill-tag">${skill.trim()}</span>
-                `).join('')}
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Skills</h2>
+                <div class="flex flex-wrap gap-2">
+                    ${skills.split(',').map(skill => `
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">${skill.trim()}</span>
+                    `).join('')}
+                </div>
             </div>
         `;
         cvContent.appendChild(skillsDiv);
@@ -177,11 +266,12 @@ async function downloadPDF() {
 // Form submission handler
 document.getElementById('cv-generator-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    generateCV();
+    if (validateStep(4)) {
+        generateCV();
+    }
 });
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-    // Add any initialization code here
     showLanding();
 }); 

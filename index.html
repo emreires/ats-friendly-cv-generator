@@ -17,28 +17,184 @@
 </head>
 <body class="bg-gray-50 font-['Inter']">
     <!-- Landing Page -->
-    <section id="landing" class="min-h-screen flex items-center justify-center px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                Create Your ATS-Friendly CV 🚀
-            </h1>
-            <p class="text-xl text-gray-600 mb-8">
-                Generate a professional, ATS-compliant CV in minutes. No installation required!
-            </p>
-            <button onclick="showForm()" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors">
-                Start Creating Your CV
-            </button>
+    <section id="landing" class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl font-bold text-blue-600">CV Builder</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                    <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                        <div class="sm:text-center lg:text-left">
+                            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                                <span class="block">Create Your</span>
+                                <span class="block text-blue-600">ATS-Friendly CV</span>
+                            </h1>
+                            <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                                Generate a professional, ATS-compliant CV in minutes. No installation required - just open and use!
+                            </p>
+                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                                <div class="rounded-md shadow">
+                                    <button onclick="showForm()" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10">
+                                        Start Creating Your CV
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
         </div>
+
+        <!-- Features Section -->
+        <div class="py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Features</h2>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Everything you need to create a perfect CV
+                    </p>
+                </div>
+
+                <div class="mt-10">
+                    <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+                        <!-- Feature 1 -->
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">ATS-Friendly Format</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Optimized for Applicant Tracking Systems to ensure your CV gets noticed.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                                </svg>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Professional Templates</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Clean, modern designs that make your CV stand out.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Quick & Easy</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Create your CV in minutes with our step-by-step form.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 4 -->
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Instant PDF Download</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Download your CV as a PDF with one click.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-50">
+            <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-base text-gray-500">
+                    Made with ❤️ for job seekers everywhere
+                </p>
+            </div>
+        </footer>
     </section>
 
     <!-- CV Form -->
     <section id="cv-form" class="min-h-screen hidden py-12 px-4">
         <div class="max-w-4xl mx-auto">
             <div class="bg-white rounded-xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-8">Your CV Details</h2>
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900">Your CV Details</h2>
+                    <button onclick="showLanding()" class="text-gray-600 hover:text-gray-900">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Progress Steps -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="relative">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
+                                    1
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-900">Personal Info</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 h-1 bg-gray-200 mx-4"></div>
+                        <div class="flex items-center">
+                            <div class="relative">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 font-semibold">
+                                    2
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-500">Experience</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 h-1 bg-gray-200 mx-4"></div>
+                        <div class="flex items-center">
+                            <div class="relative">
+                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 font-semibold">
+                                    3
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-500">Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <form id="cv-generator-form" class="space-y-6">
-                    <!-- Personal Information -->
-                    <div class="space-y-4">
+                    <!-- Step 1: Personal Information -->
+                    <div id="step-1" class="space-y-4">
                         <h3 class="text-xl font-semibold text-gray-800">Personal Information</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -58,18 +214,19 @@
                                 <input type="text" name="location" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Professional Summary -->
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Professional Summary</h3>
-                        <div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700">Professional Summary</label>
                             <textarea name="summary" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" onclick="nextStep(1)" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                Next Step
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Work Experience -->
-                    <div class="space-y-4">
+                    <!-- Step 2: Work Experience -->
+                    <div id="step-2" class="space-y-4 hidden">
                         <h3 class="text-xl font-semibold text-gray-800">Work Experience</h3>
                         <div id="work-experience-container">
                             <div class="work-experience-entry space-y-4 p-4 border rounded-lg">
@@ -97,13 +254,23 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" onclick="addWorkExperience()" class="text-blue-600 hover:text-blue-700 font-medium">
-                            + Add Another Experience
-                        </button>
+                        <div class="flex justify-between">
+                            <button type="button" onclick="prevStep(2)" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                Previous Step
+                            </button>
+                            <div class="space-x-4">
+                                <button type="button" onclick="addWorkExperience()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                    Add Another Experience
+                                </button>
+                                <button type="button" onclick="nextStep(2)" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                    Next Step
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Education -->
-                    <div class="space-y-4">
+                    <!-- Step 3: Education -->
+                    <div id="step-3" class="space-y-4 hidden">
                         <h3 class="text-xl font-semibold text-gray-800">Education</h3>
                         <div id="education-container">
                             <div class="education-entry space-y-4 p-4 border rounded-lg">
@@ -127,28 +294,36 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" onclick="addEducation()" class="text-blue-600 hover:text-blue-700 font-medium">
-                            + Add Another Education
-                        </button>
+                        <div class="flex justify-between">
+                            <button type="button" onclick="prevStep(3)" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                Previous Step
+                            </button>
+                            <div class="space-x-4">
+                                <button type="button" onclick="addEducation()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                    Add Another Education
+                                </button>
+                                <button type="button" onclick="nextStep(3)" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                    Next Step
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Skills -->
-                    <div class="space-y-4">
+                    <!-- Step 4: Skills -->
+                    <div id="step-4" class="space-y-4 hidden">
                         <h3 class="text-xl font-semibold text-gray-800">Skills</h3>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Skills (comma-separated)</label>
                             <input type="text" name="skills" placeholder="e.g., JavaScript, Python, Project Management" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="flex justify-end space-x-4">
-                        <button type="button" onclick="showLanding()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-                            Back
-                        </button>
-                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                            Generate CV
-                        </button>
+                        <div class="flex justify-between">
+                            <button type="button" onclick="prevStep(4)" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                Previous Step
+                            </button>
+                            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                Generate CV
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -30,75 +30,185 @@ section {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: #1f2937;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 #cv-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
     color: #111827;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
 }
 
 #cv-content h2 {
     font-size: 1.5rem;
     font-weight: 600;
     color: #374151;
-    margin: 1.5rem 0 1rem;
+    margin: 2rem 0 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #e5e7eb;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#cv-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
 }
 
 #cv-content p {
     margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Contact information */
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: #4b5563;
+}
+
+.contact-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Work experience and education entries */
 .work-experience-entry, .education-entry {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .work-experience-entry:hover, .education-entry:hover {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+/* Date ranges */
+.date-range {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
 /* Skills list */
 .skills-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-top: 1rem;
 }
 
 .skill-tag {
-    background-color: #e5e7eb;
-    padding: 0.25rem 0.75rem;
+    background-color: #f3f4f6;
+    color: #374151;
+    padding: 0.5rem 1rem;
     border-radius: 9999px;
     font-size: 0.875rem;
-    color: #374151;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
-/* Responsive adjustments */
-@media (max-width: 640px) {
-    #cv-content h1 {
-        font-size: 2rem;
+.skill-tag:hover {
+    background-color: #e5e7eb;
+}
+
+/* Form validation styles */
+input:invalid, textarea:invalid {
+    border-color: #ef4444;
+}
+
+input:invalid:focus, textarea:invalid:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Progress bar */
+.progress-bar {
+    height: 0.25rem;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+/* Step indicators */
+.step-indicator {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.step-indicator.active {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.step-indicator.completed {
+    background-color: #10b981;
+    color: white;
+}
+
+/* ATS-friendly print styles */
+@media print {
+    body {
+        background: white;
     }
-    
-    #cv-content h2 {
-        font-size: 1.25rem;
+
+    #cv-content {
+        padding: 0;
+        max-width: none;
+    }
+
+    .work-experience-entry, .education-entry {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .skill-tag {
+        background: none;
+        padding: 0;
+        margin-right: 1rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: #1f2937;
     }
 }
 
 /* Loading animation */
 .loading {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid rgba(59, 130, 246, 0.3);
     border-radius: 50%;
-    border-top-color: #fff;
+    border-top-color: #3b82f6;
     animation: spin 1s ease-in-out infinite;
 }
 
@@ -126,15 +236,6 @@ section {
     background: #555;
 }
 
-/* Form validation styles */
-input:invalid, textarea:invalid {
-    border-color: #ef4444;
-}
-
-input:invalid:focus, textarea:invalid:focus {
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-}
-
 /* Success message animation */
 @keyframes slideIn {
     from {
@@ -149,4 +250,27 @@ input:invalid:focus, textarea:invalid:focus {
 
 .success-message {
     animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    #cv-content {
+        padding: 1rem;
+    }
+
+    #cv-content h1 {
+        font-size: 1.875rem;
+    }
+
+    #cv-content h2 {
+        font-size: 1.25rem;
+    }
+
+    #cv-content h3 {
+        font-size: 1.125rem;
+    }
+
+    .work-experience-entry, .education-entry {
+        padding: 1rem;
+    }
 } 

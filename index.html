@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS-Friendly CV Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- jsPDF CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- html2canvas CDN for PDF generation -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body class="bg-gray-50 font-['Inter']">
+    <!-- Landing Page -->
+    <section id="landing" class="min-h-screen flex items-center justify-center px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Create Your ATS-Friendly CV 🚀
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Generate a professional, ATS-compliant CV in minutes. No installation required!
+            </p>
+            <button onclick="showForm()" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors">
+                Start Creating Your CV
+            </button>
+        </div>
+    </section>
+
+    <!-- CV Form -->
+    <section id="cv-form" class="min-h-screen hidden py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-8">Your CV Details</h2>
+                <form id="cv-generator-form" class="space-y-6">
+                    <!-- Personal Information -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Personal Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" name="fullName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Phone</label>
+                                <input type="tel" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Location</label>
+                                <input type="text" name="location" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Professional Summary -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Professional Summary</h3>
+                        <div>
+                            <textarea name="summary" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Work Experience -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Work Experience</h3>
+                        <div id="work-experience-container">
+                            <div class="work-experience-entry space-y-4 p-4 border rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Company</label>
+                                        <input type="text" name="company[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Position</label>
+                                        <input type="text" name="position[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                                        <input type="date" name="startDate[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">End Date</label>
+                                        <input type="date" name="endDate[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                                    <textarea name="description[]" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addWorkExperience()" class="text-blue-600 hover:text-blue-700 font-medium">
+                            + Add Another Experience
+                        </button>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Education</h3>
+                        <div id="education-container">
+                            <div class="education-entry space-y-4 p-4 border rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Institution</label>
+                                        <input type="text" name="institution[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Degree</label>
+                                        <input type="text" name="degree[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                                        <input type="date" name="eduStartDate[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">End Date</label>
+                                        <input type="date" name="eduEndDate[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addEducation()" class="text-blue-600 hover:text-blue-700 font-medium">
+                            + Add Another Education
+                        </button>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Skills</h3>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Skills (comma-separated)</label>
+                            <input type="text" name="skills" placeholder="e.g., JavaScript, Python, Project Management" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="showLanding()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Back
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            Generate CV
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV Preview -->
+    <section id="cv-preview" class="min-h-screen hidden py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900">CV Preview</h2>
+                    <div class="space-x-4">
+                        <button onclick="downloadPDF()" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            Download PDF
+                        </button>
+                        <button onclick="editCV()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Edit CV
+                        </button>
+                    </div>
+                </div>
+                <div id="cv-content" class="space-y-6">
+                    <!-- CV content will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html> 

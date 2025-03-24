@@ -33,15 +33,122 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <style>
         .form-input {
-            @apply mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200;
+            @apply mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200;
         }
         
         .form-label {
-            @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+            @apply block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1 transition-colors duration-200;
         }
-        
+
+        .form-section {
+            @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 transition-colors duration-200 border border-gray-200 dark:border-gray-700;
+        }
+
+        .form-title {
+            @apply text-xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-200;
+        }
+
+        .btn-primary {
+            @apply px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800;
+        }
+
+        .btn-secondary {
+            @apply px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800;
+        }
+
+        .btn-group {
+            @apply flex items-center space-x-4;
+        }
+
+        .form-grid {
+            @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+        }
+
+        .form-group {
+            @apply space-y-2;
+        }
+
+        .template-option {
+            @apply cursor-pointer p-4 border rounded-lg hover:border-blue-500 dark:border-gray-700 dark:hover:border-blue-400 transition-colors duration-200;
+        }
+
+        .template-option.selected {
+            @apply ring-2 ring-blue-500 dark:ring-blue-400;
+        }
+
+        .template-option img {
+            @apply w-full h-48 object-cover rounded-lg mb-3;
+        }
+
+        .template-option h4 {
+            @apply font-medium text-gray-900 dark:text-white;
+        }
+
+        .template-option p {
+            @apply text-sm text-gray-500 dark:text-gray-400;
+        }
+
+        .progress-step {
+            @apply flex items-center;
+        }
+
+        .progress-step-number {
+            @apply w-10 h-10 flex items-center justify-center rounded-full font-semibold transition-colors duration-200;
+        }
+
+        .progress-step-text {
+            @apply ml-4 text-sm font-medium transition-colors duration-200;
+        }
+
+        .progress-line {
+            @apply flex-1 h-1 bg-gray-200 dark:bg-gray-700 mx-4;
+        }
+
         .alignment-controls {
             @apply print:hidden;
+        }
+
+        /* Add these new styles for input fields */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        textarea {
+            @apply mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200;
+        }
+
+        /* Style for input containers */
+        .work-experience-entry,
+        .education-entry {
+            @apply space-y-6 p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700/50;
+        }
+
+        #cv-content h2 {
+            @apply text-gray-900 dark:text-gray-100 !important;
+        }
+
+        #cv-content h3 {
+            @apply text-gray-900 dark:text-gray-100 !important;
+        }
+
+        #cv-content h4 {
+            @apply text-gray-900 dark:text-gray-100 !important;
+        }
+
+        #cv-content p {
+            @apply text-gray-600 dark:text-gray-300;
+        }
+
+        #cv-content .text-accent {
+            @apply text-blue-600 dark:text-blue-400;
+        }
+
+        #cv-content .bg-accent {
+            @apply bg-blue-100 dark:bg-blue-900;
+        }
+
+        #cv-content .border-accent {
+            @apply border-blue-200 dark:border-blue-800;
         }
     </style>
 </head>
@@ -402,14 +509,15 @@
     <!-- CV Form -->
     <section id="cv-form" class="min-h-screen hidden py-12 px-4 pt-24">
         <div class="max-w-4xl mx-auto">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Your CV Details</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8">
+                <!-- Form Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Your CV Details</h2>
                     <div class="flex items-center space-x-4">
-                        <button onclick="enableTestMode()" class="px-4 py-2 text-sm bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-md hover:bg-green-200 dark:hover:bg-green-800 transition-colors">
+                        <button onclick="enableTestMode()" class="px-4 py-2 text-sm bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-lg hover:bg-green-200 dark:hover:bg-green-800 transition-colors">
                             Enable Test Mode
                         </button>
-                        <button onclick="showLanding()" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                        <button onclick="showLanding()" class="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
@@ -419,146 +527,143 @@
 
                 <!-- Template Selection -->
                 <div class="mb-8">
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Choose Your Template</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-4">Choose Your Template</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <!-- Classic Template -->
-                        <div class="template-option cursor-pointer p-4 border rounded-lg hover:border-blue-500 dark:border-gray-700 dark:hover:border-blue-400" data-template="classic" onclick="selectTemplate('classic')">
-                            <div class="aspect-w-16 aspect-h-9 mb-2">
-                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Classic template" class="object-cover rounded">
-                            </div>
+                        <div class="template-option cursor-pointer p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-colors" data-template="classic" onclick="selectTemplate('classic')">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Classic template" class="w-full h-48 object-cover rounded-lg mb-3">
                             <h4 class="font-medium text-gray-900 dark:text-white">Classic</h4>
                             <p class="text-sm text-gray-500 dark:text-gray-400">Traditional and proven format</p>
                         </div>
 
                         <!-- Modern Template -->
-                        <div class="template-option cursor-pointer p-4 border rounded-lg hover:border-blue-500 dark:border-gray-700 dark:hover:border-blue-400" data-template="modern" onclick="selectTemplate('modern')">
-                            <div class="aspect-w-16 aspect-h-9 mb-2">
-                                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0" alt="Modern template" class="object-cover rounded">
-                            </div>
+                        <div class="template-option cursor-pointer p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-colors" data-template="modern" onclick="selectTemplate('modern')">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0" alt="Modern template" class="w-full h-48 object-cover rounded-lg mb-3">
                             <h4 class="font-medium text-gray-900 dark:text-white">Modern</h4>
                             <p class="text-sm text-gray-500 dark:text-gray-400">Clean and contemporary design</p>
                         </div>
 
                         <!-- Professional Template -->
-                        <div class="template-option cursor-pointer p-4 border rounded-lg hover:border-blue-500 dark:border-gray-700 dark:hover:border-blue-400" data-template="professional" onclick="selectTemplate('professional')">
-                            <div class="aspect-w-16 aspect-h-9 mb-2">
-                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab" alt="Professional template" class="object-cover rounded">
-                            </div>
+                        <div class="template-option cursor-pointer p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-colors" data-template="professional" onclick="selectTemplate('professional')">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab" alt="Professional template" class="w-full h-48 object-cover rounded-lg mb-3">
                             <h4 class="font-medium text-gray-900 dark:text-white">Professional</h4>
                             <p class="text-sm text-gray-500 dark:text-gray-400">Executive and polished style</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Progress Steps -->
-                <div class="mb-8">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="relative">
-                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
-                                    1
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-900">Personal Info</p>
-                            </div>
+                <!-- Step progress indicators -->
+                <div class="max-w-4xl mx-auto mb-8">
+                    <div class="relative pt-1">
+                        <!-- Progress bar -->
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
+                            <div id="progress-bar-inner" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500 dark:bg-blue-600" style="width: 0%"></div>
                         </div>
-                        <div class="flex-1 h-1 bg-gray-200 mx-4"></div>
-                        <div class="flex items-center">
-                            <div class="relative">
-                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 font-semibold">
-                                    2
+                        <!-- Step indicators -->
+                        <div class="flex justify-between text-xs">
+                            <div class="progress-step active" data-step="1">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-600 text-white">1</div>
+                                    <div class="mt-2 font-medium text-gray-900 dark:text-white">Templates</div>
                                 </div>
                             </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Experience</p>
-                            </div>
-                        </div>
-                        <div class="flex-1 h-1 bg-gray-200 mx-4"></div>
-                        <div class="flex items-center">
-                            <div class="relative">
-                                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 font-semibold">
-                                    3
+                            <div class="progress-step" data-step="2">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400">2</div>
+                                    <div class="mt-2 font-medium text-gray-500 dark:text-gray-400">Personal</div>
                                 </div>
                             </div>
-                            <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500">Education</p>
+                            <div class="progress-step" data-step="3">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400">3</div>
+                                    <div class="mt-2 font-medium text-gray-500 dark:text-gray-400">Experience</div>
+                                </div>
+                            </div>
+                            <div class="progress-step" data-step="4">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400">4</div>
+                                    <div class="mt-2 font-medium text-gray-500 dark:text-gray-400">Skills</div>
+                                </div>
+                            </div>
+                            <div class="progress-step" data-step="5">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400">5</div>
+                                    <div class="mt-2 font-medium text-gray-500 dark:text-gray-400">Appearance</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <form id="cv-generator-form" class="space-y-6">
+                <form id="cv-generator-form" class="space-y-8">
                     <!-- Step 1: Personal Information -->
-                    <div id="step-1" class="space-y-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Personal Information</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="form-label">Full Name</label>
-                                <input type="text" name="fullName" required class="form-input">
+                    <div id="step-1" class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Personal Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Full Name</label>
+                                <input type="text" name="fullName" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                             </div>
-                            <div>
-                                <label class="form-label">Email</label>
-                                <input type="email" name="email" required class="form-input">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
+                                <input type="email" name="email" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                             </div>
-                            <div>
-                                <label class="form-label">Phone</label>
-                                <input type="tel" name="phone" class="form-input">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Phone</label>
+                                <input type="tel" name="phone" class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                             </div>
-                            <div>
-                                <label class="form-label">Location</label>
-                                <input type="text" name="location" class="form-input">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Location</label>
+                                <input type="text" name="location" class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <label class="form-label">Professional Summary</label>
-                            <textarea name="summary" rows="4" class="form-input"></textarea>
+                        <div class="mt-6 space-y-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Professional Summary</label>
+                            <textarea name="summary" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200"></textarea>
                         </div>
-                        <div class="flex justify-end">
-                            <button type="button" onclick="nextStep(1)" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        <div class="flex justify-end mt-6">
+                            <button type="button" onclick="nextStep(1)" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                 Next Step
                             </button>
                         </div>
                     </div>
 
                     <!-- Step 2: Work Experience -->
-                    <div id="step-2" class="space-y-4 hidden">
-                        <h3 class="text-xl font-semibold text-gray-800">Work Experience</h3>
-                        <div id="work-experience-container">
-                            <div class="work-experience-entry space-y-4 p-4 border rounded-lg">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="form-label">Company</label>
-                                        <input type="text" name="company[]" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label">Position</label>
-                                        <input type="text" name="position[]" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label">Start Date</label>
-                                        <input type="date" name="startDate[]" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label">End Date</label>
-                                        <input type="date" name="endDate[]" class="form-input">
-                                    </div>
+                    <div id="step-2" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Work Experience</h3>
+                        <div id="work-experience-container" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Company</label>
+                                    <input type="text" name="company[]" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                                 </div>
-                                <div>
-                                    <label class="form-label">Description</label>
-                                    <textarea name="description[]" rows="3" class="form-input"></textarea>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Position</label>
+                                    <input type="text" name="position[]" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Start Date</label>
+                                    <input type="date" name="startDate[]" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">End Date</label>
+                                    <input type="date" name="endDate[]" class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                                 </div>
                             </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
+                                <textarea name="description[]" rows="3" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200"></textarea>
+                            </div>
                         </div>
-                        <div class="flex justify-between">
-                            <button type="button" onclick="prevStep(2)" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                        <div class="flex flex-col md:flex-row justify-between items-center mt-6 space-y-4 md:space-y-0">
+                            <button type="button" onclick="prevStep(2)" class="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                 Previous Step
                             </button>
-                            <div class="space-x-4">
-                                <button type="button" onclick="addWorkExperience()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
+                                <button type="button" onclick="addWorkExperience()" class="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                     Add Another Experience
                                 </button>
-                                <button type="button" onclick="nextStep(2)" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                <button type="button" onclick="nextStep(2)" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                     Next Step
                                 </button>
                             </div>
@@ -566,39 +671,37 @@
                     </div>
 
                     <!-- Step 3: Education -->
-                    <div id="step-3" class="space-y-4 hidden">
-                        <h3 class="text-xl font-semibold text-gray-800">Education</h3>
-                        <div id="education-container">
-                            <div class="education-entry space-y-4 p-4 border rounded-lg">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="form-label">Institution</label>
-                                        <input type="text" name="institution[]" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label">Degree</label>
-                                        <input type="text" name="degree[]" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label">Start Date</label>
-                                        <input type="date" name="eduStartDate[]" class="form-input">
-                                    </div>
-                                    <div>
-                                        <label class="form-label">End Date</label>
-                                        <input type="date" name="eduEndDate[]" class="form-input">
-                                    </div>
+                    <div id="step-3" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Education</h3>
+                        <div id="education-container" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Institution</label>
+                                    <input type="text" name="institution[]" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Degree</label>
+                                    <input type="text" name="degree[]" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Start Date</label>
+                                    <input type="date" name="eduStartDate[]" required class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">End Date</label>
+                                    <input type="date" name="eduEndDate[]" class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                                 </div>
                             </div>
                         </div>
-                        <div class="flex justify-between">
-                            <button type="button" onclick="prevStep(3)" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                        <div class="flex flex-col md:flex-row justify-between items-center mt-6 space-y-4 md:space-y-0">
+                            <button type="button" onclick="prevStep(3)" class="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                 Previous Step
                             </button>
-                            <div class="space-x-4">
-                                <button type="button" onclick="addEducation()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
+                                <button type="button" onclick="addEducation()" class="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                     Add Another Education
                                 </button>
-                                <button type="button" onclick="nextStep(3)" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                <button type="button" onclick="nextStep(3)" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                     Next Step
                                 </button>
                             </div>
@@ -606,19 +709,231 @@
                     </div>
 
                     <!-- Step 4: Skills -->
-                    <div id="step-4" class="space-y-4 hidden">
-                        <h3 class="text-xl font-semibold text-gray-800">Skills</h3>
-                        <div>
-                            <label class="form-label">Skills (comma-separated)</label>
-                            <input type="text" name="skills" placeholder="e.g., JavaScript, Python, Project Management" class="form-input">
+                    <div id="step-4" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Skills</h3>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Skills (comma-separated)</label>
+                            <input type="text" name="skills" placeholder="e.g., JavaScript, Python, Project Management" class="mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                         </div>
-                        <div class="flex justify-between">
-                            <button type="button" onclick="prevStep(4)" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                        <div class="flex flex-col md:flex-row justify-between items-center mt-6 space-y-4 md:space-y-0">
+                            <button type="button" onclick="prevStep(4)" class="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                 Previous Step
                             </button>
-                            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                                Generate CV
+                            <button type="button" onclick="nextStep(4)" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                Next Step
                             </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: CV Appearance Customization -->
+                    <div id="step-5" class="hidden">
+                        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">CV Appearance Settings</h2>
+                            
+                            <!-- Accent Color Selection -->
+                            <div class="mb-8">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">Choose an accent color</label>
+                                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                                    <div class="relative">
+                                        <input type="radio" id="colorBlue" name="accentColor" value="blue" checked class="sr-only peer" />
+                                        <label for="colorBlue" class="flex items-center justify-center h-12 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <div class="w-4 h-4 bg-blue-500 rounded-full mr-2"></div>
+                                            <span class="text-gray-700 dark:text-gray-300">Blue</span>
+                                        </label>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="radio" id="colorGreen" name="accentColor" value="green" class="sr-only peer" />
+                                        <label for="colorGreen" class="flex items-center justify-center h-12 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-green-500 dark:peer-checked:border-green-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                                            <span class="text-gray-700 dark:text-gray-300">Green</span>
+                                        </label>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="radio" id="colorRed" name="accentColor" value="red" class="sr-only peer" />
+                                        <label for="colorRed" class="flex items-center justify-center h-12 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-red-500 dark:peer-checked:border-red-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
+                                            <span class="text-gray-700 dark:text-gray-300">Red</span>
+                                        </label>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="radio" id="colorPurple" name="accentColor" value="purple" class="sr-only peer" />
+                                        <label for="colorPurple" class="flex items-center justify-center h-12 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-purple-500 dark:peer-checked:border-purple-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <div class="w-4 h-4 bg-purple-500 rounded-full mr-2"></div>
+                                            <span class="text-gray-700 dark:text-gray-300">Purple</span>
+                                        </label>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="radio" id="colorGray" name="accentColor" value="gray" class="sr-only peer" />
+                                        <label for="colorGray" class="flex items-center justify-center h-12 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-gray-500 dark:peer-checked:border-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <div class="w-4 h-4 bg-gray-500 rounded-full mr-2"></div>
+                                            <span class="text-gray-700 dark:text-gray-300">Gray</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Template specific settings -->
+                            <div id="classicTemplateSettings" class="template-settings mb-8">
+                                <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Classic Template Settings</h4>
+                                
+                                <!-- Text alignment -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">Text Alignment</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="relative">
+                                            <input type="radio" id="alignLeft" name="classicAlignment" value="left" checked class="sr-only peer" />
+                                            <label for="alignLeft" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Left</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="alignCenter" name="classicAlignment" value="center" class="sr-only peer" />
+                                            <label for="alignCenter" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Center</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="alignRight" name="classicAlignment" value="right" class="sr-only peer" />
+                                            <label for="alignRight" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Right</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Section border style -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">Section Borders</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="relative">
+                                            <input type="radio" id="borderSolid" name="classicBorder" value="solid" checked class="sr-only peer" />
+                                            <label for="borderSolid" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Solid</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="borderDashed" name="classicBorder" value="dashed" class="sr-only peer" />
+                                            <label for="borderDashed" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Dashed</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="borderDotted" name="classicBorder" value="dotted" class="sr-only peer" />
+                                            <label for="borderDotted" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Dotted</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="modernTemplateSettings" class="template-settings mb-8 hidden">
+                                <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Modern Template Settings</h4>
+                                
+                                <!-- Sidebar background -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">Sidebar Background</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="relative">
+                                            <input type="radio" id="sidebarLight" name="modernSidebar" value="light" checked class="sr-only peer" />
+                                            <label for="sidebarLight" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Light</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="sidebarDark" name="modernSidebar" value="dark" class="sr-only peer" />
+                                            <label for="sidebarDark" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Dark</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="sidebarAccent" name="modernSidebar" value="accent" class="sr-only peer" />
+                                            <label for="sidebarAccent" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Accent</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Skills style -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">Skills Style</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="relative">
+                                            <input type="radio" id="skillsRounded" name="modernSkills" value="rounded" checked class="sr-only peer" />
+                                            <label for="skillsRounded" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Rounded</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="skillsPill" name="modernSkills" value="pill" class="sr-only peer" />
+                                            <label for="skillsPill" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Pill</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="skillsSquare" name="modernSkills" value="square" class="sr-only peer" />
+                                            <label for="skillsSquare" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Square</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="professionalTemplateSettings" class="template-settings mb-8 hidden">
+                                <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Professional Template Settings</h4>
+                                
+                                <!-- Section headers style -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">Section Headers</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <div class="relative">
+                                            <input type="radio" id="headersUnderline" name="professionalHeaders" value="underline" checked class="sr-only peer" />
+                                            <label for="headersUnderline" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Underlined</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="headersBoxed" name="professionalHeaders" value="boxed" class="sr-only peer" />
+                                            <label for="headersBoxed" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Boxed</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="headersPlain" name="professionalHeaders" value="plain" class="sr-only peer" />
+                                            <label for="headersPlain" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Plain</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Avatar -->
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">Show Avatar</label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="relative">
+                                            <input type="radio" id="avatarYes" name="professionalAvatar" value="yes" checked class="sr-only peer" />
+                                            <label for="avatarYes" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">Yes</span>
+                                            </label>
+                                        </div>
+                                        <div class="relative">
+                                            <input type="radio" id="avatarNo" name="professionalAvatar" value="no" class="sr-only peer" />
+                                            <label for="avatarNo" class="flex items-center justify-center h-10 w-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-blue-500 dark:peer-checked:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <span class="text-gray-700 dark:text-gray-300">No</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="flex justify-between mt-8">
+                            <button type="button" onclick="previousStep()" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg transition-colors">Previous</button>
+                            <button type="button" onclick="generateCV()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">Generate CV</button>
                         </div>
                     </div>
                 </form>

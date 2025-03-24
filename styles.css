@@ -6,10 +6,13 @@
     --primary-dark: #2563EB;
     --success: #10B981;
     --error: #EF4444;
-    --text-primary: #1F2937;
+    --text-primary: #111827;
     --text-secondary: #4B5563;
+    --text-tertiary: #6B7280;
     --bg-primary: #FFFFFF;
     --bg-secondary: #F3F4F6;
+    --bg-tertiary: #E5E7EB;
+    --border-color: #E5E7EB;
 }
 
 .dark {
@@ -17,10 +20,13 @@
     --primary-dark: #3B82F6;
     --success: #34D399;
     --error: #F87171;
-    --text-primary: #F9FAFB;
+    --text-primary: #F3F4F6;
     --text-secondary: #D1D5DB;
-    --bg-primary: #111827;
-    --bg-secondary: #1F2937;
+    --text-tertiary: #9CA3AF;
+    --bg-primary: #1F2937;
+    --bg-secondary: #374151;
+    --bg-tertiary: #4B5563;
+    --border-color: #4B5563;
 }
 
 /* Smooth transitions */
@@ -74,11 +80,11 @@ section {
 
 /* Template preview hover effects */
 .template-option {
-    @apply transition-all duration-300 transform hover:scale-105;
+    @apply cursor-pointer rounded-lg p-4 transition-all duration-200;
 }
 
-.template-option.selected {
-    @apply ring-2 ring-blue-500;
+.template-option:hover {
+    @apply ring-2 ring-blue-500 dark:ring-blue-400 bg-blue-50 dark:bg-blue-900/20;
 }
 
 /* Form step transitions */
@@ -244,18 +250,26 @@ button:not(:disabled):active {
 
 /* CV Preview styles */
 #cv-content {
+    @apply max-w-4xl mx-auto;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    color: #1f2937;
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
 }
 
+#cv-content h1,
+#cv-content h2,
+#cv-content h3,
+#cv-content h4 {
+    color: var(--text-primary);
+}
+
 #cv-content h1 {
     font-size: 2.25rem;
     font-weight: 700;
-    color: #111827;
     margin-bottom: 0.5rem;
     line-height: 1.2;
 }
@@ -263,7 +277,6 @@ button:not(:disabled):active {
 #cv-content h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #374151;
     margin: 2rem 0 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #e5e7eb;
@@ -274,11 +287,11 @@ button:not(:disabled):active {
 #cv-content h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #4b5563;
     margin-bottom: 0.5rem;
 }
 
 #cv-content p {
+    color: var(--text-secondary);
     margin-bottom: 1rem;
     line-height: 1.6;
 }
@@ -328,17 +341,9 @@ button:not(:disabled):active {
 }
 
 .skill-tag {
-    background-color: #f3f4f6;
-    color: #374151;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.skill-tag:hover {
-    background-color: #e5e7eb;
+    @apply px-3 py-1 rounded-full text-sm;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
 }
 
 /* Form validation styles */
@@ -374,4 +379,54 @@ input:invalid:focus, textarea:invalid:focus {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+/* Section Styles */
+.cv-section {
+    @apply mb-8 pb-4;
+    border-color: var(--border-color);
+}
+
+/* Border Styles */
+.border-solid { border-style: solid !important; }
+.border-dashed { border-style: dashed !important; }
+.border-dotted { border-style: dotted !important; }
+.border-double { border-style: double !important; }
+.border-none { border-style: none !important; }
+
+/* Dark Mode Sidebar */
+.sidebar-light {
+    @apply bg-gray-50 dark:bg-gray-700;
+}
+
+.sidebar-dark {
+    @apply bg-gray-700 dark:bg-gray-800 text-white;
+}
+
+/* Form Progress */
+.progress-step {
+    @apply flex flex-col items-center;
+}
+
+.progress-step-active .step-number {
+    @apply bg-blue-600 text-white;
+}
+
+.progress-step-completed .step-number {
+    @apply bg-green-500 text-white;
+}
+
+.progress-step-future .step-number {
+    @apply bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400;
+}
+
+/* Print Styles */
+@media print {
+    #cv-content {
+        @apply shadow-none;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
 } 

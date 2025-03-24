@@ -37,6 +37,9 @@ Welcome to the Modern CV Generator! A beautiful, responsive, and feature-rich ap
 - Mobile-friendly interface
 - Print-optimized output
 
+## 🖼️ Preview
+![Example CV](preview.png)
+
 ## 🚀 Getting Started
 
 1. **Clone the repository**

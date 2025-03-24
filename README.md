@@ -2,6 +2,8 @@
 
 Welcome to the Modern CV Generator! A beautiful, responsive, and feature-rich application to create professional CVs in multiple styles. Built with modern web technologies and designed with user experience in mind.
 
+### ⚠️ Warning: As I was strengthening my expertise in Tailwind, I conceived this project as a simple yet practical idea.
+
 ## ✨ Features
 
 ### 🎨 Multiple Templates
